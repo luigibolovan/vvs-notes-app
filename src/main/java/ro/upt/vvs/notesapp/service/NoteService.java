@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 import ro.upt.vvs.notesapp.dao.NoteDao;
 import ro.upt.vvs.notesapp.model.Note;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 public class NoteService {
     private final NoteDao noteDao;
@@ -17,5 +21,21 @@ public class NoteService {
 
     public int addNote(Note note){
         return noteDao.insertNote(note);
+    }
+
+    public List<Note> getAllNotes() {
+        return noteDao.getAllNotes();
+    }
+
+    public Optional<Note> getNoteByID(UUID id) {
+        return noteDao.getNoteById(id);
+    }
+
+    public void deleteNoteByID(UUID id) {
+        noteDao.deleteNoteById(id);
+    }
+
+    public void updateNoteByID(UUID id, Note newNote) {
+        noteDao.updateNoteById(id, newNote);
     }
 }

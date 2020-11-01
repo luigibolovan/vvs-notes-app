@@ -13,7 +13,7 @@ public class Note {
         return id;
     }
 
-    public Note(@JsonProperty("id")UUID id, @JsonProperty("name")String text) {
+    public Note(@JsonProperty("id")UUID id, @JsonProperty("text")String text) {
         this.id = id;
         this.text = text;
     }
