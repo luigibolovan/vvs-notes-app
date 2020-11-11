@@ -31,11 +31,11 @@ public class NoteService {
         return noteDao.getNoteById(id);
     }
 
-    public void deleteNoteByID(UUID id) {
-        noteDao.deleteNoteById(id);
+    public int deleteNoteByID(UUID id) {
+        return noteDao.deleteNoteById(id);
     }
 
-    public void updateNoteByID(UUID id, Note newNote) {
-        noteDao.updateNoteById(id, newNote);
+    public int updateNoteByID(UUID id, Note newNote) {
+        return noteDao.updateNoteById(id, newNote);
     }
 }

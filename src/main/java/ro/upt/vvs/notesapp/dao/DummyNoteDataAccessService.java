@@ -15,6 +15,9 @@ public class DummyNoteDataAccessService implements NoteDao{
 
     @Override
     public int insertNote(UUID id, Note note) {
+        if (note == null || note.getText() == null){
+            return 1;
+        }
         dummyDB.add(new Note(id, note.getText()));
         return 0;
     }
