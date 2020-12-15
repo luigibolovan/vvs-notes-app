@@ -1,15 +1,15 @@
 package ro.upt.vvs.notesapp.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ro.upt.vvs.notesapp.model.Note;
 import ro.upt.vvs.notesapp.service.NoteService;
-
-import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/")
-@RestController
+//@RestController
+@Controller
 public class NoteController {
     private final NoteService noteService;
 
@@ -19,27 +19,28 @@ public class NoteController {
         this.noteService = noteService;
     }
 
-    @PostMapping
-    public void addNote(@RequestBody Note note){
+    @PostMapping("/addnote")
+    public String addNote(@ModelAttribute("note") Note note){
         noteService.addNote(note);
+        return "redirect:/";
     }
 
-    @GetMapping
-    public List<Note> getAllNotes() {
-        return noteService.getAllNotes();
+    @GetMapping("/")
+    public String getAllNotes(Model model) {
+        Note newNote = new Note();
+        model.addAttribute("note", newNote);
+        model.addAttribute("listNotes", noteService.getAllNotes());
+        return "index";
     }
 
-    @GetMapping(path = "{id}")
-    public Note getNoteByID(@PathVariable("id") UUID id) {
-        return noteService.getNoteByID(id)
-                .orElse(null);
+    @GetMapping("/deletenote/{id}")
+    public String deleteNoteByID(@PathVariable(value = "id") String id) {
+        noteService.deleteNoteByID(UUID.fromString(id));
+
+        return "redirect:/";
     }
 
-    @DeleteMapping(path = "{id}")
-    public void deleteNoteByID(@PathVariable("id") UUID id) {
-        noteService.deleteNoteByID(id);
-    }
-
+    /* only rest */
     @PutMapping(path = "{id}")
     public void updateNoteByID(@PathVariable("id") UUID id, @RequestBody Note newNote) {
         noteService.updateNoteByID(id, newNote);

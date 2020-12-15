@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Note {
-    private final String text;
+    private String text;
     private final UUID id;
 
     public UUID getUid() {
@@ -18,7 +18,14 @@ public class Note {
         this.text = text;
     }
 
+    public Note() {
+        id = UUID.randomUUID();
+    }
     public String getText() {
         return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
