@@ -1,41 +1,45 @@
 package ro.upt.vvs.notesapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ro.upt.vvs.notesapp.dao.NoteDao;
 import ro.upt.vvs.notesapp.model.Note;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class NoteService {
     private final NoteDao noteDao;
 
     @Autowired
-    public NoteService(@Qualifier("dummyDao")NoteDao noteDao){
+    public NoteService(NoteDao noteDao){
         this.noteDao = noteDao;
     }
 
-    public int addNote(Note note){
-        return noteDao.insertNote(note);
+    public void addNote(Note note){
+        noteDao.saveAndFlush(note);
     }
 
     public List<Note> getAllNotes() {
-        return noteDao.getAllNotes();
+        return noteDao.findAll();
     }
 
-    public Optional<Note> getNoteByID(UUID id) {
-        return noteDao.getNoteById(id);
+    public Optional<Note> getNoteByID(String id) {
+        return noteDao.findById(id);
     }
 
-    public int deleteNoteByID(UUID id) {
-        return noteDao.deleteNoteById(id);
+    public void deleteNoteByID(String uid) {
+        noteDao.deleteById(uid);
     }
 
-    public int updateNoteByID(UUID id, Note newNote) {
-        return noteDao.updateNoteById(id, newNote);
+    public void updateNoteByID(String id, Note newNote) {
+        Optional<Note> currentNote = noteDao.findById(id);
+
+        currentNote.ifPresent(note -> {
+            note.setText(newNote.getText());
+            noteDao.saveAndFlush(note);
+        });
+
     }
 }

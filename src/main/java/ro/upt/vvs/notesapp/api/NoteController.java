@@ -35,14 +35,14 @@ public class NoteController {
 
     @GetMapping("/deletenote/{id}")
     public String deleteNoteByID(@PathVariable(value = "id") String id) {
-        noteService.deleteNoteByID(UUID.fromString(id));
+        noteService.deleteNoteByID(id);
 
         return "redirect:/";
     }
 
     /* only rest */
     @PutMapping(path = "{id}")
-    public void updateNoteByID(@PathVariable("id") UUID id, @RequestBody Note newNote) {
+    public void updateNoteByID(@PathVariable("id") String id, @RequestBody Note newNote) {
         noteService.updateNoteByID(id, newNote);
     }
 }
