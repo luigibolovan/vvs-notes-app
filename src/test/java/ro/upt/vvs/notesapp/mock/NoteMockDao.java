@@ -1,4 +1,4 @@
-package ro.upt.vvs.notesapp.mockito;
+package ro.upt.vvs.notesapp.mock;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
