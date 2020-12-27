@@ -1,4 +1,4 @@
-package ro.upt.vvs.notesapp.mock;
+package ro.upt.vvs.notesapp.mocktesting;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
