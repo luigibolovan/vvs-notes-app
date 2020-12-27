@@ -68,7 +68,7 @@
             <div class="card-body">
                     <p class="card-text"><span th:text="${note.text}"></span></p>
             </div>
-            <a class="btn btn-warning" th:href="@{/deletenote/{id}(id=${note.uid})}">x</a>
+            <a class="btn btn-warning" id="delete_btn" th:href="@{/deletenote/{id}(id=${note.uid})}">x</a>
         </div>
     </div>
 </body>

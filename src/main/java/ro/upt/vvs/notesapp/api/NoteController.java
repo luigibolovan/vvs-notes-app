@@ -6,14 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ro.upt.vvs.notesapp.model.Note;
 import ro.upt.vvs.notesapp.service.NoteService;
-import java.util.UUID;
 
 //@RestController
 @Controller
 public class NoteController {
     private final NoteService noteService;
 
-    //dependency injection
     @Autowired
     public NoteController(NoteService noteService){
         this.noteService = noteService;
