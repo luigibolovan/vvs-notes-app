@@ -18,7 +18,9 @@ public class NoteService {
     }
 
     public void addNote(Note note){
-        noteDao.saveAndFlush(note);
+        if (note.getText() != null && !note.getText().equals("")) {
+            noteDao.saveAndFlush(note);
+        }
     }
 
     public List<Note> getAllNotes() {

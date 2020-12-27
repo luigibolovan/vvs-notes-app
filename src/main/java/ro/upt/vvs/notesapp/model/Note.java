@@ -30,6 +30,11 @@ public class Note {
     public Note() {
         uid = UUID.randomUUID().toString();
     }
+
+    public Note(String text) {
+        uid = UUID.randomUUID().toString();
+        this.text = text;
+    }
     public String getText() {
         return text;
     }

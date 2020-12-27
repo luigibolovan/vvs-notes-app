@@ -12,9 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class NoteMockDao implements NoteDao {
+
+    private List<Note> mockNotes = new ArrayList<>();
+
     @Override
     public Optional<Note> findById(String s) {
-        return Optional.empty();
+        return mockNotes.stream()
+                .filter(note -> note.getUid().equals(s))
+                .findFirst();
     }
 
     @Override
@@ -24,7 +29,7 @@ public class NoteMockDao implements NoteDao {
 
     @Override
     public List<Note> findAll() {
-        return null;
+        return mockNotes;
     }
 
     @Override
@@ -49,7 +54,9 @@ public class NoteMockDao implements NoteDao {
 
     @Override
     public void deleteById(String s) {
+        Optional<Note> currentNote = findById(s);
 
+        currentNote.ifPresent(note -> mockNotes.remove(currentNote.get()));
     }
 
     @Override
@@ -84,7 +91,8 @@ public class NoteMockDao implements NoteDao {
 
     @Override
     public <S extends Note> S saveAndFlush(S s) {
-        return null;
+        mockNotes.add(s);
+        return s;
     }
 
     @Override
@@ -132,5 +140,5 @@ public class NoteMockDao implements NoteDao {
         return false;
     }
 
-    private List<Note> mockNotes = new ArrayList<>();
+
 }
